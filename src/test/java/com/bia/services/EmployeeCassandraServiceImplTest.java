@@ -56,7 +56,7 @@ public class EmployeeCassandraServiceImplTest {
 		
 		ByteBuffer bb = ByteBuffer.wrap(IOUtils.toByteArray(this.getClass().getClassLoader().getResourceAsStream("log4j.properties")));
 		ByteBuffer buffer = ByteBufferUtil.bytes("Hello world");
-		obj.setImg(bb);
+		obj.setContent(bb);
 		//obj.setImg(IOUtils.toByteArray("Hello World"));
 		Assert.assertNotNull(
 				"Data on demand for 'Employee' failed to provide a new transient entity",
@@ -71,7 +71,7 @@ public class EmployeeCassandraServiceImplTest {
 		System.out.println(e);
 		
 		
-		System.out.println(ByteBufferUtil.string(e.getImg()));
+		System.out.println(ByteBufferUtil.string(e.getContent()));
 		
 		//for (Emp e1 : employeeService.findByUsername(name)) {
 		//	System.out.println(" find by username : " + e1);

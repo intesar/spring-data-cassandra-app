@@ -10,13 +10,9 @@ import org.springframework.data.cassandra.mapping.PrimaryKey;
 import org.springframework.data.cassandra.mapping.PrimaryKeyColumn;
 import org.springframework.data.cassandra.mapping.Table;
 
-//CREATE COLUMNFAMILY emp ( id varchar PRIMARY KEY, username varchar, joinDate timestamp, storageSize double);
-//CREATE INDEX userIndex ON emp (username);
 @Table
 public class Emp {
 
-	//@Id
-	//@PrimaryKeyColumn(name = "id", ordinal = 1, type=PrimaryKeyType.PARTITIONED)
 	@PrimaryKey
 	protected String id;
 
@@ -26,7 +22,7 @@ public class Emp {
 
 	protected Double storageSize;
 
-	protected ByteBuffer img;
+	protected ByteBuffer content;
 
 	public String getId() {
 		return this.id;
@@ -60,18 +56,37 @@ public class Emp {
 		this.storageSize = storageSize;
 	}
 
-	public ByteBuffer getImg() {
-		return img;
+	public ByteBuffer getContent() {
+		return content;
 	}
 
-	public void setImg(ByteBuffer img) {
-		this.img = img;
+	public void setContent(ByteBuffer content) {
+		this.content = content;
 	}
 
 	@Override
-	public String toString() {
-		return "Emp [id=" + id + ", username=" + username + ", joinDate="
-				+ joinDate + ", storageSize=" + storageSize + "]";
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Emp other = (Emp) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		return true;
 	}
 
 }

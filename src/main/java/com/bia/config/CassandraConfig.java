@@ -1,8 +1,6 @@
-package com.bia.domain;
+package com.bia.config;
 
-import org.springframework.cassandra.core.CqlOperations;
-import org.springframework.cassandra.core.CqlTemplate;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.config.java.AbstractCassandraConfiguration;
@@ -13,22 +11,26 @@ import org.springframework.data.cassandra.repository.config.EnableCassandraRepos
 public class CassandraConfig extends AbstractCassandraConfiguration {
 
 	// run the below commends on cql cli.
-	//create keyspace demo with replication = {'class':'SimpleStrategy', 'replication_factor':1} ;
-	//use demo ;
-	//CREATE COLUMNFAMILY emp ( id varchar PRIMARY KEY, username varchar);
+	// create keyspace vchest with replication = {'class':'SimpleStrategy', 'replication_factor':1} ;
+	// use demo ;
+	// CREATE COLUMNFAMILY emp ( id varchar PRIMARY KEY, username varchar, joinDate timestamp, storageSize double, content blob);
+	
+	@Value("${keyspace}")
+	private String keyspace;
 	
     @Override
     public String getKeyspaceName() {
-        return "proj";
+        return this.keyspace;
     }
     
+    @Override
     public SchemaAction getSchemaAction() {
 		return SchemaAction.RECREATE_DROP_UNUSED;
 	}
     
-    //@Bean
-    //public CqlOperations getCqlTemplate() throws Exception {
-    	//CqlTemplate ct ;
-    //    return new CqlTemplate(this.session().getObject());
-    //}
+    @Override
+    public String[] getEntityBasePackages() {
+    	return new String[] {"com.bia.domain"};
+    }
+
 }

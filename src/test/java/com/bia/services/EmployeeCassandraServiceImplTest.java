@@ -1,15 +1,13 @@
 package com.bia.services;
 
-import java.io.File;
+import com.bia.domain.Emp;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
-
 import org.apache.cassandra.utils.ByteBufferUtil;
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.junit.Assert;
 import org.junit.Ignore;
@@ -18,11 +16,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import com.bia.domain.Emp;
 
 @Configurable
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -38,7 +33,7 @@ public class EmployeeCassandraServiceImplTest {
 	EmployeeCassandraServiceImpl employeeService;
 
 	@Test
-	@Rollback(true)
+	//@Rollback(true)
 	//@Ignore
 	public void testSaveEmployee() throws IOException {
 		//for (Emp e : employeeService.findAllEmployees()) {
@@ -47,7 +42,7 @@ public class EmployeeCassandraServiceImplTest {
 		//}
 		
 		String id = UUID.randomUUID().toString();
-		String name = "Imran Mohammed";
+		String name = "Imran Mohammed " + new Date();
 		Emp obj = new Emp();
 		obj.setUsername(name);
 		obj.setJoinDate(new Date());
@@ -68,14 +63,17 @@ public class EmployeeCassandraServiceImplTest {
 		//Assert.assertFalse(employeeService.findAllEmployees().isEmpty());
 
 		Emp e = employeeService.findById(id);
-		System.out.println(e);
+		System.out.println(" find by Id : " + e );
+                System.out.println(new String(e.getContent().array()));
 		
 		
-		System.out.println(ByteBufferUtil.string(e.getContent()));
+		//System.out.println(ByteBufferUtil.string(e.getContent()));
 		
-		//for (Emp e1 : employeeService.findByUsername(name)) {
-		//	System.out.println(" find by username : " + e1);
-		//}
+		for (Emp e1 : employeeService.findByUsername(name)) {
+			System.out.println(" find by username : " + e1);
+		}
+		//employeeService.deleteAll();
+		
 	}
 	
 	@Test

@@ -3,26 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+package com.bia.repo.cassandra;
 
-package com.bia.repo;
-
-import java.util.List;
+import org.springframework.data.cassandra.repository.TypedIdCassandraRepository;
+import org.springframework.stereotype.Component;
 
 import com.bia.domain.Emp;
-
-import org.springframework.data.cassandra.repository.CassandraRepository;
-import org.springframework.data.cassandra.repository.Query;
-import org.springframework.data.cassandra.repository.TypedIdCassandraRepository;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Qualifier;
 
 /**
  *
  * @author mdshannan
  */
+@Qualifier(value = "empCassandraRepo")
 @Component
-public interface EmployeeRepo extends TypedIdCassandraRepository<Emp, String> {
-    
+public interface EmpCassandraRepo extends TypedIdCassandraRepository<Emp, String> {
+
 	//@Query("SELECT * FROM emp e WHERE e.username = ?1")
-	//List<Emp> findAllByUsername(String username);
+    //List<Emp> findAllByUsername(String username);
 }

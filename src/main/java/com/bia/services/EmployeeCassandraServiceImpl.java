@@ -15,11 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class EmployeeCassandraServiceImpl {
 
     @Autowired
-    @Qualifier(value = "empCassandraRepo")
     private EmpCassandraRepo empCassandraRepo;
 
     @Autowired
-    @Qualifier(value = "empSolrRepo")
     private EmpSolrRepo empSolrRepo;
 
     public List<Emp> findAllEmployees() {

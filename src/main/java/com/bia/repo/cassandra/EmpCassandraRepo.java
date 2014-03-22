@@ -7,6 +7,7 @@ package com.bia.repo.cassandra;
 
 import org.springframework.data.cassandra.repository.TypedIdCassandraRepository;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 
 import com.bia.domain.Emp;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -15,8 +16,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
  *
  * @author mdshannan
  */
-@Qualifier(value = "empCassandraRepo")
-@Component
+@Repository
 public interface EmpCassandraRepo extends TypedIdCassandraRepository<Emp, String> {
 
 	//@Query("SELECT * FROM emp e WHERE e.username = ?1")
